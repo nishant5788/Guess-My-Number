@@ -1,8 +1,10 @@
 'use strict';
 
-let body, message, winningNumber, game, submitBtn, playAgain, score, guess, bodyColor, successColor, failureColor;
+let body, displayMsg, winningNumber, game, submitBtn, playAgain, score, guess, bodyColor, successColor, failureColor;
 body = document.querySelector('body');
-message = document.querySelector('.message');
+displayMsg = (msg) => {
+    return document.querySelector('.message').textContent = msg;
+}
 submitBtn = document.querySelector('.check');
 playAgain = document.querySelector('.again');
 score = document.querySelector('.score');
@@ -25,7 +27,7 @@ submitBtn.addEventListener("click", function () {
     const guessVal = Number(guess.value);
 
     if (game.gameStatus && guessVal > 0) {
-        guessVal < 1 ? message.textContent = "No Number!" : message.textContent = guessStatus(guessVal);
+        guessVal < 1 ? displayMsg("No Number!") : displayMsg(guessStatus(guessVal));
     }
 
 
@@ -36,7 +38,7 @@ playAgain.addEventListener("click", function () {
     winningNumber = parseInt(Math.random() * 20 + 1);
     console.log("Winning Guess is " + winningNumber);
     body.style.backgroundColor = bodyColor;
-    message.textContent = 'Start Guessing...';
+    displayMsg("Start Guessing!")
     document.querySelector('.number').textContent = "?";
     score.textContent = 20;
     document.querySelector('.guess').value = "";
@@ -65,13 +67,13 @@ function guessStatus(val) {
 
         if (currentScore === 0) {
             body.style.backgroundColor = failureColor;
-            return message.textContent = "You have Lost the Game!";
+            return displayMsg("You have Lost the Game!");
         }
 
         if (val > winningNumber) {
-            return message.textContent = "Too High!";
+            return displayMsg("Too High!");
         } else {
-            return message.textContent = "Too Low!";
+            return displayMsg("Too Low!");
         }
     } 
     else {
@@ -85,7 +87,7 @@ function guessStatus(val) {
 
         document.querySelector('.highscore').textContent = game.highScore;
 
-        return message.textContent = "Correct Answer!";
+        return displayMsg("Correct Answer!");
     }
 
 
